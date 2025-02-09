@@ -11,6 +11,8 @@ def create_app():
     print(f"Application running on {env} mode")
     app.config.from_object(config[env])
 
+    # print(f"Mongo URI: {app.config['MONGO_URI']}")
+
     # Register routes
     app.register_blueprint(default_bp)
 

@@ -1,0 +1,39 @@
+version: "3"
+
+services:
+  node-microservice:
+    container_name: node-microservice
+    build:
+      context: ./node-microservice
+      dockerfile: Dockerfile
+    ports:
+      - "5001:5000"
+    environment:
+      - NODE_ENV=production
+    env_file:
+      - ./node-microservice/.env
+    volumes:
+      - ./node-microservice:/app
+    networks:
+      - app-network
+
+  flask-microservice:
+    container_name: flask-microservice
+    build:
+      context: ./flask-microservice
+      dockerfile: Dockerfile
+    ports:
+      - "5002:5000"
+    environment:
+      - FLASK_ENV=production
+    env_file:
+      - ./flask-microservice/.env
+    volumes:
+      - ./flask-microservice:/app
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    name: microservices-network
+    driver: bridge

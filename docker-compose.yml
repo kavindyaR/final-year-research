@@ -2,10 +2,10 @@ version: "3"
 
 services:
   node-microservice:
-    container_name: node-microservice
     build:
       context: ./node-microservice
       dockerfile: Dockerfile
+    container_name: node-microservice
     ports:
       - "5001:5000"
     environment:
@@ -18,10 +18,10 @@ services:
       - app-network
 
   flask-microservice:
-    container_name: flask-microservice
     build:
       context: ./flask-microservice
       dockerfile: Dockerfile
+    container_name: flask-microservice
     ports:
       - "5002:5000"
     environment:
@@ -32,6 +32,19 @@ services:
       - ./flask-microservice:/app
     networks:
       - app-network
+
+  nginx-gateway:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    container_name: nginx-gateway
+    ports:
+      - "80:80"
+    networks:
+      - app-network
+    depends_on:
+      - node-microservice
+      - flask-microservice
 
 networks:
   app-network:

@@ -1,19 +1,23 @@
+import FormInput from "./components/FormInput";
+
 function App() {
   return (
     <>
-      <h1>Heading 01</h1>
-      <h2>Heading 01</h2>
-      <h3>Heading 01</h3>
+      <div className="p-4">
+        <FormInput
+          name={"email"}
+          label={"Email Address"}
+          type={"email"}
+          placeholder={"Type Your Email"}
+        />
 
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate
-        iusto iure perspiciatis sed, ipsum officiis placeat quibusdam, totam
-        fugit autem aliquam rerum obcaecati aspernatur doloribus quos. Nostrum,
-        ad atque maiores tempora quo soluta ipsam eaque deserunt temporibus
-        voluptatem eos distinctio sequi praesentium fugiat eius dignissimos
-        tenetur illo natus, eveniet reprehenderit? Labore similique possimus
-        delectus exercitationem non aperiam perspiciatis officia.
-      </p>
+        <FormInput
+          name={"password"}
+          label={"Password"}
+          type={"password"}
+          placeholder={"Type Your Password"}
+        />
+      </div>
     </>
   );
 }

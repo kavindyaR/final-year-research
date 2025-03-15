@@ -1,3 +1,4 @@
+import FormButton from "./components/FormButton";
 import FormInput from "./components/FormInput";
 
 function App() {
@@ -17,6 +18,8 @@ function App() {
           type={"password"}
           placeholder={"Type Your Password"}
         />
+
+        <FormButton label={"Sign In"} />
       </div>
     </>
   );

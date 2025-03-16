@@ -6,31 +6,39 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   // Check if user is already authenticated
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await api.get("/api/auth/me"); // API to verify token
-        setUser(response.data.user.id);
-        if (user) navigate("/dashboard");
+        const response = await api.get("/api/user/profile"); // API to verify token
+        setUser(response.data);
       } catch (error) {
-        console.log(error);
-        logout();
+        console.log("Auth check failed:", error.message);
+        setUser(null);
+        // logout();
+      } finally {
+        setLoading(false);
       }
     };
 
-    const token = localStorage.getItem("token");
-    if (token) checkAuth();
-  }, [user]);
+    const token = localStorage.getItem("accessToken");
+    if (token) {
+      checkAuth();
+    } else {
+      setLoading(false);
+    }
+  }, []);
 
   const login = async (email, password) => {
     try {
       const response = await api.post("/api/auth/login", { email, password });
-      localStorage.setItem("token", response.data.token);
-      // setUser(response.data.user);
-      setUser("user");
+      localStorage.setItem("accessToken", response.data.token.accessToken);
+      localStorage.setItem("refreshToken", response.data.token.refreshToken);
+      // localStorage.setItem("user", response.data.user);
+      setUser(response.data.user);
       navigate("/dashboard");
     } catch (error) {
       console.error("Login failed", error.response?.data?.message);
@@ -46,15 +54,23 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const logout = () => {
-    localStorage.removeItem("token");
-    setUser(null);
-    navigate("/login");
+  const logout = async () => {
+    try {
+      await api.post("/api/auth/logout", {
+        refreshToken: localStorage.getItem("refreshToken"),
+      });
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+      setUser(null);
+      navigate("/login");
+    } catch (error) {
+      console.error("Registration failed", error.response?.data?.message);
+    }
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, register, logout }}>
-      {children}
+    <AuthContext.Provider value={{ user, loading, login, register, logout }}>
+      {!loading && children}
     </AuthContext.Provider>
   );
 };

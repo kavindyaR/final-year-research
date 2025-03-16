@@ -46,7 +46,15 @@ const loginUser = async (email, password) => {
   user.refreshToken = refreshToken;
   await user.save();
 
-  return { accessToken, refreshToken, expiresIn: 7200 };
+  // Convert to plain object and remove fields
+  const userObject = user.toObject();
+  delete userObject.password;
+  delete userObject.__v;
+
+  return {
+    user: userObject,
+    token: { accessToken, refreshToken, expiresIn: 7200 },
+  };
 };
 
 const logoutUser = async (refreshToken) => {

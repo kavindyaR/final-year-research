@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await api.get("/auth/me"); // API to verify token
+        const response = await api.get("/api/auth/me"); // API to verify token
         setUser(response.data.user);
       } catch (error) {
         logout();
@@ -27,7 +27,8 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await api.post("/api/auth/login", { email, password });
       localStorage.setItem("token", response.data.token);
-      setUser(response.data.user);
+      // setUser(response.data.user);
+      setUser("user");
       navigate("/dashboard");
     } catch (error) {
       console.error("Login failed", error.response?.data?.message);

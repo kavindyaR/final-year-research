@@ -25,4 +25,8 @@ const loginUser = async (email, password) => {
   return generateToken(user);
 };
 
-module.exports = { registerUser, loginUser };
+const getJWTSecret = () => {
+  return config.JWT_SECRET;
+};
+
+module.exports = { registerUser, loginUser, getJWTSecret };

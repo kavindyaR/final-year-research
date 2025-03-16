@@ -1,12 +1,18 @@
-import FormButton from "./components/FormButton";
-import FormInput from "./components/FormInput";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 
 function App() {
   return (
-    // <Login />
-    <Register />
+    // <AuthProvider></AuthProvider>
+
+    <Router>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
+    </Router>
   );
 }
 

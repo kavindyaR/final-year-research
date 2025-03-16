@@ -13,15 +13,17 @@ export const AuthProvider = ({ children }) => {
     const checkAuth = async () => {
       try {
         const response = await api.get("/api/auth/me"); // API to verify token
-        setUser(response.data.user);
+        setUser(response.data.user.id);
+        if (user) navigate("/dashboard");
       } catch (error) {
+        console.log(error);
         logout();
       }
     };
 
     const token = localStorage.getItem("token");
     if (token) checkAuth();
-  }, []);
+  }, [user]);
 
   const login = async (email, password) => {
     try {

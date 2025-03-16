@@ -1,18 +1,22 @@
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginFormSchema } from "../../schemas/formSchema";
+import { useAuth } from "../../context/AuthContext";
 import FormButton from "../../components/FormButton";
 import FormInput from "../../components/FormInput";
 import styles from "./Login.module.css";
 
 const Login = () => {
+  const { login } = useAuth();
+
   const methods = useForm({
     resolver: zodResolver(loginFormSchema),
     defaultValues: { email: "", password: "" },
   });
 
-  const onSubmit = (data) => {
-    console.log("Form Submitted", data);
+  const onSubmit = async (data) => {
+    const { email, password } = data;
+    await login(email, password);
   };
 
   return (

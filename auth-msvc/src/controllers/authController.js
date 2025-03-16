@@ -1,8 +1,7 @@
-const jwt = require("jsonwebtoken"); // remove later
 const {
   registerUser,
   loginUser,
-  getJWTSecret,
+  logoutUser,
 } = require("../services/authService");
 
 exports.register = async (req, res) => {
@@ -25,15 +24,12 @@ exports.login = async (req, res) => {
   }
 };
 
-exports.authMe = (req, res) => {
-  const token = req.headers.authorization?.split(" ")[1];
-  const secret = getJWTSecret();
-  console.log(token);
-
+exports.logout = async (req, res) => {
   try {
-    const decoded = jwt.verify(token, secret);
-    res.status(200).json({ user: { id: decoded.id } });
-  } catch {
-    res.status(401).send({ message: "Session expired" });
+    const { refreshToken } = req.body;
+    const result = await logoutUser(refreshToken);
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(403).json({ error: error.message });
   }
 };

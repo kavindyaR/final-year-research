@@ -3,11 +3,11 @@ const config = require("../config");
 
 // Verify JWT Token
 const authMiddleware = (req, res, next) => {
-  const token = req.header("Authorization");
+  const token = req.header("Authorization")?.split(" ")[1]; // Remove 'Bearer' from token string
   if (!token) return res.status(401).json({ error: "Access Denied" });
 
   try {
-    const decoded = jwt.verify(token.replace("Bearer ", ""), config.JWT_SECRET);
+    const decoded = jwt.verify(token, config.JWT_SECRET); // decoded = JWT token object
     req.user = decoded;
     next();
   } catch (error) {

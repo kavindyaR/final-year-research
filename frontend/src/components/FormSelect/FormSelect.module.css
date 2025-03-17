@@ -1,0 +1,25 @@
+.formInputWrapper {
+  margin-bottom: 2rem;
+}
+
+.formLabel {
+  font-size: 1.6rem;
+  padding-bottom: 7px;
+}
+
+.formSelect {
+  font-size: 1.8rem;
+  padding: 7px 15px;
+  border-radius: 10px;
+}
+
+@media screen and (min-width: 1024px) {
+  .formLabel {
+    font-size: 1.4rem;
+    padding-bottom: 7px;
+  }
+
+  .formSelect {
+    font-size: 1.6rem;
+  }
+}

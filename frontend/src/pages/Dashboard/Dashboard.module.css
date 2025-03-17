@@ -1,0 +1,17 @@
+.formWrapper {
+  /* background-color: rgb(238, 189, 189); */
+  height: 100vh;
+  margin: auto;
+  padding: 10vh 40px 0;
+}
+
+.formTitle {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+@media screen and (min-width: 1024px) {
+  .formWrapper {
+    width: 40vw;
+  }
+}

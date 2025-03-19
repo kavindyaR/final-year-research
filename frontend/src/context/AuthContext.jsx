@@ -13,7 +13,10 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await api.get("/api/user/profile"); // API to verify token
+        const response = await api.get(
+          "http://localhost:5000/api/user/profile"
+        ); // API to verify token
+        // const response = await api.get("/api/user/profile"); // API to verify token
         setUser(response.data);
       } catch (error) {
         console.log("Auth check failed:", error.message);

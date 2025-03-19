@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import PrivateRoute from "./routes/PrivateRoute";
+import Chart from "./pages/Chart/Chart";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
               </PrivateRoute>
             }
           />
+          <Route path="/chart" element={<Chart />} />
         </Routes>
       </AuthProvider>
     </Router>

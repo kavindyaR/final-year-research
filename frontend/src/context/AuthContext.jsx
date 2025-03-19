@@ -37,7 +37,10 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const response = await api.post("/api/auth/login", { email, password });
+      const response = await api.post("http://localhost:5000/api/auth/login", {
+        email,
+        password,
+      });
       localStorage.setItem("accessToken", response.data.token.accessToken);
       localStorage.setItem("refreshToken", response.data.token.refreshToken);
       // localStorage.setItem("user", response.data.user);
@@ -50,7 +53,11 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (username, email, password) => {
     try {
-      await api.post("/api/auth/register", { username, email, password });
+      await api.post("http://localhost:5000/api/auth/register", {
+        username,
+        email,
+        password,
+      });
       login(email, password); // Auto-login after registration
     } catch (error) {
       console.error("Registration failed", error.response?.data?.message);
@@ -59,7 +66,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      await api.post("/api/auth/logout", {
+      await api.post("http://localhost:5000/api/auth/logout", {
         refreshToken: localStorage.getItem("refreshToken"),
       });
       localStorage.removeItem("accessToken");

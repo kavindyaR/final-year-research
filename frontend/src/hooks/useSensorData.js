@@ -1,10 +1,21 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchSensorDataByUID } from "../services/sensorDataApi";
+import {
+  fetchSensorDataByUID,
+  fetchActivityScoreByUID,
+} from "../services/sensorDataApi";
 
-export const useData = () => {
+export const useSensorData = () => {
   return useQuery({
-    queryKey: ["data"],
+    queryKey: ["sensorData"],
     queryFn: fetchSensorDataByUID,
+    staleTime: 600000, // 5 minutes caching
+  });
+};
+
+export const useActivityScore = () => {
+  return useQuery({
+    queryKey: ["activityScore"],
+    queryFn: fetchActivityScoreByUID,
     staleTime: 600000, // 5 minutes caching
   });
 };

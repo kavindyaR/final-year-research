@@ -2,6 +2,23 @@
   padding: 0 10vw 75px;
 }
 
+.scoreHeading {
+  font-size: 2.4rem;
+  font-weight: 600;
+  color: rgb(34, 172, 34);
+}
+
+.score {
+  font-size: 3rem;
+  padding-left: 0.5rem;
+}
+
+.scoreCard {
+  padding: 2rem 0;
+  margin-bottom: 2rem;
+  /* background-color: lightsalmon; */
+}
+
 .gridContainer {
   display: grid;
   /* grid-template-columns: repeat(2, 1fr); */

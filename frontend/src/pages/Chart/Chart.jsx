@@ -1,15 +1,29 @@
 import { useEffect, useState } from "react";
 import Table from "../../components/Table";
-import { useData } from "../../hooks/useSensorData";
+import { useSensorData, useActivityScore } from "../../hooks/useSensorData";
 import styles from "./Chart.module.css";
+import { formatDate, roundNumber } from "../../utils/shaper";
 
 const Chart = () => {
-  const { data, error, isLoading } = useData();
-  const [sensorData, setSensorData] = useState();
+  const {
+    data: sensorData,
+    error: sensorError,
+    isLoading: sensorLoading,
+  } = useSensorData();
+
+  const {
+    data: activityScore,
+    error: scoreError,
+    isScoreLoading: scoreLoading,
+  } = useActivityScore();
+
+  const [sensorRecords, setSensorRecords] = useState();
+  const [scoreData, setScoreData] = useState();
 
   useEffect(() => {
-    if (data && data.length > 0) {
-      setSensorData(data[0]["types"]);
+    if (sensorData && sensorData.length > 0) {
+      setSensorRecords(sensorData[0]["types"]);
+      setScoreData(activityScore[0]);
     }
   });
 
@@ -17,17 +31,28 @@ const Chart = () => {
     return str.replace(/([a-z])([A-Z])/g, "$1 $2");
   };
 
-  // console.log(sensorData);
+  // console.log(scoreData);
 
-  if (isLoading) return <h4>Loading...</h4>;
+  if (sensorLoading) return <h4>Loading...</h4>;
 
   return (
     <div className={styles.pageWrapper}>
       <h2>Chart Page</h2>
 
+      <div className={styles.scoreCard}>
+        <div className={styles.scoreHeading}>
+          Activity Score{" "}
+          <span className={styles.score}>
+            {scoreData && roundNumber(scoreData["value"])}
+          </span>
+        </div>
+
+        <span>Last Update: {scoreData && formatDate(scoreData["date"])}</span>
+      </div>
+
       <section className={styles.gridContainer}>
-        {sensorData && Object.keys(sensorData).length > 0 ? (
-          Object.entries(sensorData).map(([key, value]) => (
+        {sensorRecords && Object.keys(sensorRecords).length > 0 ? (
+          Object.entries(sensorRecords).map(([key, value]) => (
             <div key={key} className={styles.gridItem}>
               <span className={styles.tableTitle}>{splitCamelCase(key)}</span>
               <div className={styles.tableWrapper}>

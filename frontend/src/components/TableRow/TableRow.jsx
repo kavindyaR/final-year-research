@@ -1,14 +1,7 @@
 import styles from "./TableRow.module.css";
+import { formatDate, roundNumber } from "../../utils/shaper";
 
 const TableRow = ({ unit, data }) => {
-  const formatDate = (isoString) => {
-    return isoString.split("T")[0];
-  };
-
-  const roundNumber = (num) => {
-    return Math.round(num * 100) / 100;
-  };
-
   return (
     <>
       {data && data.length > 0 ? (

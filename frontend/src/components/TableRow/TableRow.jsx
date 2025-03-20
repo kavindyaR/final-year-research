@@ -1,13 +1,21 @@
 import styles from "./TableRow.module.css";
 
 const TableRow = ({ unit, data }) => {
+  const formatDate = (isoString) => {
+    return isoString.split("T")[0];
+  };
+
+  const roundNumber = (num) => {
+    return Math.round(num * 100) / 100;
+  };
+
   return (
     <>
       {data && data.length > 0 ? (
         data.map((column, index) => (
           <tr key={index}>
-            <td>{column.date}</td>
-            <td>{column.value}</td>
+            <td>{formatDate(column.date)}</td>
+            <td>{roundNumber(column.value)}</td>
             <td>{unit}</td>
           </tr>
         ))

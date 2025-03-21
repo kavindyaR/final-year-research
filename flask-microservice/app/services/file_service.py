@@ -1,6 +1,7 @@
 import os
 from flask import current_app, jsonify
 from app.utils import allowed_file, secure_file_save
+from .data_preprocess import preprocess_health_data
 
 # Bytes conversion
 def bytes_to_megabytes(bytes_value):
@@ -32,8 +33,10 @@ def handle_file_upload(request):
             # Perform the required task
             result = process_file(file_path)
 
+            preprocess_health_data(file_path, "a6sgwi3s263SAGF")
+
             # Delete the file after processing
-            os.remove(file_path)
+            # os.remove(file_path)
 
             return jsonify({'message': 'File processed successfully', 'result': result}), 200
         except Exception as e:

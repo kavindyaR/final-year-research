@@ -47,11 +47,40 @@ def extract_health_data(xml_file_path):
     return records
 
 
+# Define aggregation function based on 'type'
+def agg_function(x):
+    mean_types = ['HeartRate', 'OxygenSaturation', 'RestingHeartRate', 'WalkingHeartRateAverage', 
+    'HeartRateVariabilitySDNN', 'WalkingStepLength']
+    sum_types = ['ActiveEnergyBurned', 'BasalEnergyBurned', 'StepCount']
+
+    # Access the group key (type) from the name attribute
+    group_type = x.name[0]  # x.name is a tuple of the groupby keys
+    
+    # Calculate mean for 'mean_types' or sum for 'sum_types'
+    if group_type in mean_types:
+        value = x['value'].mean()
+    else:
+        value = x['value'].sum()
+    
+    # Retain the unit from the first row in the group
+    unit = x['unit'].iloc[0]
+    
+    return pd.Series({'value': value, 'unit': unit})
+
+
 def preprocess_health_data(file_path, username):
     data = extract_health_data(file_path)
     df = pd.DataFrame(data) # Convert XML data to Pandas DataFrame
 
     df = extract_necessary_records(df)
-    df.to_csv('data.txt', index=False, sep=',')
+    # df.to_csv('data.txt', index=False, sep=',')
 
-    
+    # Apply groupby and aggregation
+    df_avg = (
+        df.groupby(['type', 'date_only'], as_index=False)
+        .apply(agg_function, include_groups=False)
+        .reset_index(drop=True)
+    )
+    df_avg = df_avg.rename(columns={'date_only': 'date'})
+
+    return df_avg

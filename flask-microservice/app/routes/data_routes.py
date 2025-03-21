@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify, current_app
-from app.services.file_service import handle_file_upload
+from app.services import handle_file_upload
 
 file_api_bp = Blueprint("default", __name__, url_prefix="/api/data")
 

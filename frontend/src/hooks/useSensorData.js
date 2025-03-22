@@ -4,18 +4,18 @@ import {
   fetchActivityScoreByUID,
 } from "../services/sensorDataApi";
 
-export const useSensorData = () => {
+export const useSensorData = (userId) => {
   return useQuery({
     queryKey: ["sensorData"],
-    queryFn: fetchSensorDataByUID,
+    queryFn: () => fetchSensorDataByUID(userId),
     staleTime: 600000, // 5 minutes caching
   });
 };
 
-export const useActivityScore = () => {
+export const useActivityScore = (userId) => {
   return useQuery({
     queryKey: ["activityScore"],
-    queryFn: fetchActivityScoreByUID,
+    queryFn: () => fetchActivityScoreByUID(userId),
     staleTime: 600000, // 5 minutes caching
   });
 };

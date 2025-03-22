@@ -1,14 +1,16 @@
 import { useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import { useFileUpload } from "../../hooks/useFileUpload";
+import { useAuth } from "../../context/AuthContext";
 
 const ALLOWED_TYPES = ["text/xml", "text/csv"];
 
 const FileUpload = () => {
+  const { user } = useAuth();
   const [files, setFiles] = useState([]);
   const [progress, setProgress] = useState(0);
 
-  const uploadMutation = useFileUpload(setProgress);
+  const uploadMutation = useFileUpload(setProgress, user["_id"]);
 
   const onDrop = useCallback((acceptedFiles, rejectedFiles) => {
     if (rejectedFiles.length > 0) {

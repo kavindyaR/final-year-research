@@ -3,19 +3,22 @@ import Table from "../../components/Table";
 import { useSensorData, useActivityScore } from "../../hooks/useSensorData";
 import styles from "./Chart.module.css";
 import { formatDate, roundNumber } from "../../utils/shaper";
+import { useAuth } from "../../context/AuthContext";
 
 const Chart = () => {
+  const { user } = useAuth();
+
   const {
     data: sensorData,
     error: sensorError,
     isLoading: sensorLoading,
-  } = useSensorData();
+  } = useSensorData(user["_id"]);
 
   const {
     data: activityScore,
     error: scoreError,
     isLoading: scoreLoading,
-  } = useActivityScore();
+  } = useActivityScore(user["_id"]);
 
   const [sensorRecords, setSensorRecords] = useState();
   const [scoreData, setScoreData] = useState();

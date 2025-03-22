@@ -14,7 +14,7 @@ const Chart = () => {
   const {
     data: activityScore,
     error: scoreError,
-    isScoreLoading: scoreLoading,
+    isLoading: scoreLoading,
   } = useActivityScore();
 
   const [sensorRecords, setSensorRecords] = useState();

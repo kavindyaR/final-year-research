@@ -19,6 +19,11 @@ def process_file(file_path):
 
 # Handles file upload and processing logic
 def handle_file_upload(request):
+    user_id = request.args.get('userId')
+
+    if not user_id:
+        return jsonify({'error': 'User ID is required'}), 400
+
     if 'file' not in request.files:
         return jsonify({'error': 'No file part in the request'}), 400
 
@@ -34,9 +39,9 @@ def handle_file_upload(request):
             # Perform the required task
             result = process_file(file_path)
 
-            df = preprocess_health_data(file_path, "a6sgwi3s263SAGF")
+            df = preprocess_health_data(file_path, user_id)
             # df.to_csv('data.txt', index=False, sep=',')
-            save_data_to_mongo(df, "research2", "sensordata", "ab67d3giqsosg68ofg8ewr")
+            save_data_to_mongo(df, "research2", "sensordata", user_id)
 
             # Delete the file after processing
             # os.remove(file_path)

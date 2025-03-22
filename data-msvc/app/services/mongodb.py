@@ -11,6 +11,9 @@ def save_data_to_mongo(df_avg, db_name, collection, uid):
     db = client[db_name]
     collection = db[collection]
 
+    # Remove existing document(s) with the same user_id BEFORE inserting new records
+    collection.delete_one({"user_id": user_id})
+
     # Define chunk size (e.g., 100 records per batch)
     chunk_size = 100  
 

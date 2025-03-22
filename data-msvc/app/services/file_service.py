@@ -2,7 +2,7 @@ import os
 from flask import current_app, jsonify
 from app.utils import allowed_file, secure_file_save
 from .data_preprocess import preprocess_health_data
-from .mongodb import save_data_to_mongo
+from .mongodb import save_data_to_mongo, fetch_recent_sensor_data, save_activity_score
 
 # Bytes conversion
 def bytes_to_megabytes(bytes_value):
@@ -44,7 +44,10 @@ def handle_file_upload(request):
             save_data_to_mongo(df, "research2", "sensordata", user_id)
 
             # Delete the file after processing
-            # os.remove(file_path)
+            os.remove(file_path)
+
+            fetch_df = fetch_recent_sensor_data("research2", "sensordata", user_id)
+            save_activity_score(fetch_df, "research2", "activityscore", user_id)
 
             return jsonify({'message': 'File processed successfully', 'result': result}), 200
         except Exception as e:

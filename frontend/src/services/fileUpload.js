@@ -1,7 +1,7 @@
 import api from "./api";
 
 export const uploadFile = async (file, onProgress, userId) => {
-  localStorage.setItem("userService", "http://localhost:5002");
+  // localStorage.setItem("userService", "http://localhost:5002");
 
   const formData = new FormData();
   formData.append("file", file);

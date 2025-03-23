@@ -13,10 +13,10 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await api.get(
-          "http://localhost:5000/api/user/profile"
-        ); // API to verify token
-        // const response = await api.get("/api/user/profile"); // API to verify token
+        // const response = await api.get(
+        //   "http://localhost:5000/api/user/profile"
+        // ); // API to verify token
+        const response = await api.get("/api/user/profile"); // API to verify token
         setUser(response.data);
       } catch (error) {
         console.log("Auth check failed:", error.message);
@@ -37,7 +37,8 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const response = await api.post("http://localhost:5000/api/auth/login", {
+      // const response = await api.post("http://localhost:5000/api/auth/login", {
+      const response = await api.post("/api/auth/login", {
         email,
         password,
       });
@@ -53,7 +54,8 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (username, email, password) => {
     try {
-      await api.post("http://localhost:5000/api/auth/register", {
+      // await api.post("http://localhost:5000/api/auth/register", {
+      await api.post("/api/auth/register", {
         username,
         email,
         password,
@@ -66,7 +68,8 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      await api.post("http://localhost:5000/api/auth/logout", {
+      // await api.post("http://localhost:5000/api/auth/logout", {
+      await api.post("/api/auth/logout", {
         refreshToken: localStorage.getItem("refreshToken"),
       });
       localStorage.removeItem("accessToken");

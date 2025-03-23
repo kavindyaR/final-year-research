@@ -14,8 +14,7 @@ EXPOSE 5002
 
 ENV FLASK_ENV=production
 
-RUN chmod +x /app/entrypoint.sh && \
-    sed -i 's/\r$//' entrypoint.sh
+RUN sed -i 's/\r$//' /app/entrypoint.sh && chmod +x /app/entrypoint.sh
 
 ENTRYPOINT ["/app/entrypoint.sh"]
 

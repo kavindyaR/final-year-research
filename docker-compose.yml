@@ -1,50 +1,88 @@
 version: "3"
 
 services:
-  node-microservice:
-    build:
-      context: ./node-microservice
-      dockerfile: Dockerfile
-    container_name: node-microservice
-    ports:
-      - "5001:5000"
-    environment:
-      - NODE_ENV=production
-    env_file:
-      - ./node-microservice/.env
-    volumes:
-      - ./node-microservice:/app
-    networks:
-      - app-network
-
-  flask-microservice:
-    build:
-      context: ./flask-microservice
-      dockerfile: Dockerfile
-    container_name: flask-microservice
-    ports:
-      - "5002:5000"
-    environment:
-      - FLASK_ENV=production
-    env_file:
-      - ./flask-microservice/.env
-    volumes:
-      - ./flask-microservice:/app
-    networks:
-      - app-network
-
   nginx-gateway:
     build:
       context: ./nginx
       dockerfile: Dockerfile
-    container_name: nginx-gateway
+    container_name: nginx_proxy
     ports:
       - "80:80"
     networks:
       - app-network
     depends_on:
-      - node-microservice
-      - flask-microservice
+      - frontend
+      - auth-service
+      - user-service
+      - data-service
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: react_frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    restart: unless-stopped
+    depends_on:
+      - auth-service
+      - user-service
+      - data-service
+    networks:
+      - app-network
+
+  auth-service:
+    build:
+      context: ./auth-msvc
+      dockerfile: Dockerfile
+    container_name: service01
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=development
+    env_file:
+      - ./auth-msvc/.env
+    volumes:
+      - ./auth-msvc:/app
+    networks:
+      - app-network
+
+  user-service:
+    build:
+      context: ./user-msvc
+      dockerfile: Dockerfile
+    container_name: service02
+    ports:
+      - "5001:5001"
+    environment:
+      - FLASK_ENV=development
+    env_file:
+      - ./user-msvc/.env
+    volumes:
+      - ./user-msvc:/app
+    networks:
+      - app-network
+
+  data-service:
+    build:
+      context: ./data-msvc
+      dockerfile: Dockerfile
+    container_name: service03
+    ports:
+      - "5002:5002"
+    environment:
+      - NODE_ENV=development
+    env_file:
+      - ./data-msvc/.env
+    volumes:
+      - ./data-msvc:/app
+    entrypoint: ["/bin/sh", "/app/entrypoint.sh"]
+    restart: unless-stopped
+    networks:
+      - app-network
 
 networks:
   app-network:

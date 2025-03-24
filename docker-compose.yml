@@ -79,6 +79,7 @@ services:
       - ./data-msvc/.env
     volumes:
       - ./data-msvc:/app
+      - /app/venv
     entrypoint: ["/bin/sh", "/app/entrypoint.sh"]
     restart: unless-stopped
     networks:

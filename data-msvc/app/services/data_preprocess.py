@@ -3,8 +3,7 @@ import xml.etree.ElementTree as ET
 
 def extract_necessary_records(dataframe):
     df = dataframe
-    drop_unnecessary_columns = ['sourceName', 'sourceVersion', 'creationDate', 'device', 'endDate']
-    df = df.drop(columns=drop_unnecessary_columns) # Remove unnecessary columns
+    df = df[['type', 'unit', 'startDate', 'value']].copy() # Extract only necessary columns
     df = df.rename(columns={'startDate': 'date'}) # Rename 'startDate' column
 
     # Reshape the type names

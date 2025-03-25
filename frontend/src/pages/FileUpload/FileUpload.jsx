@@ -2,6 +2,7 @@ import { useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import { useFileUpload } from "../../hooks/useFileUpload";
 import { useAuth } from "../../context/AuthContext";
+import styles from "./FileUpload.module.css";
 
 const ALLOWED_TYPES = ["text/xml", "text/csv"];
 
@@ -14,7 +15,7 @@ const FileUpload = () => {
 
   const onDrop = useCallback((acceptedFiles, rejectedFiles) => {
     if (rejectedFiles.length > 0) {
-      alert("Invalid file type! Only XML and CSV are allowed.");
+      alert("Invalid file type! Only XML files are allowed.");
       return;
     }
     setFiles(acceptedFiles);
@@ -27,24 +28,31 @@ const FileUpload = () => {
   });
 
   return (
-    <>
-      <h1>File Upload Page</h1>
+    <div className={styles.pageWrapper}>
+      <h1 className={styles.pageHeading}>File Upload Page</h1>
 
-      <div>
-        <div {...getRootProps()}>
+      <div className={styles.dropContainer}>
+        <div className={styles.dropZone} {...getRootProps()}>
           <input {...getInputProps()} />
           <p>
             {isDragActive
               ? "Drop the file here..."
-              : "Drag & drop or click to select an XML/CSV file"}
+              : "Drag & drop or click to select an XML file"}
           </p>
+
+          {files.length > 0 && (
+            <p className={styles.fileName}>{files[0].name}</p>
+          )}
         </div>
 
-        {files.length > 0 && <p>{files[0].name}</p>}
-
         {progress > 0 && progress < 100 && (
-          <div>
-            <div>{progress}%</div>
+          <div className={styles.progressBarContainer}>
+            <div
+              className={styles.progrssBar}
+              style={{ width: `${progress}%` }}
+            >
+              {progress}%
+            </div>
           </div>
         )}
 
@@ -52,13 +60,14 @@ const FileUpload = () => {
         {uploadMutation.isError && <p>{uploadMutation.error.message}</p>}
 
         <button
+          className={styles.uploadBtn}
           onClick={() => uploadMutation.mutate({ file: files[0] })}
           disabled={uploadMutation.isLoading || files.length === 0}
         >
           {uploadMutation.isLoading ? "Uploading..." : "Upload File"}
         </button>
       </div>
-    </>
+    </div>
   );
 };
 

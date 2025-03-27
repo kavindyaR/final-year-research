@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import Table from "../../components/Table";
 import { useSensorData, useActivityScore } from "../../hooks/useSensorData";
-import styles from "./Chart.module.css";
 import { formatDate, roundNumber } from "../../utils/shaper";
 import { useAuth } from "../../context/AuthContext";
+import styles from "./Chart.module.css";
+import { getActivityType } from "../../utils/activityType";
 
 const Chart = () => {
   const { user } = useAuth();
@@ -47,6 +48,13 @@ const Chart = () => {
           Activity Score{" "}
           <span className={styles.score}>
             {scoreData && roundNumber(scoreData["value"])}
+          </span>
+        </div>
+
+        <div>
+          Activity Status:{" "}
+          <span className={styles.activityTypeLabel}>
+            {getActivityType(scoreData?.value)}
           </span>
         </div>
 

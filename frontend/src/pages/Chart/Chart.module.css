@@ -1,5 +1,5 @@
 .pageWrapper {
-  padding: 0 10vw 75px;
+  padding: 40px 10vw 75px;
 }
 
 .scoreHeading {
@@ -17,6 +17,12 @@
   padding: 2rem 0;
   margin-bottom: 2rem;
   /* background-color: lightsalmon; */
+}
+
+.activityTypeLabel {
+  color: rgb(249, 126, 73);
+  font-size: 1.7rem;
+  font-weight: 500;
 }
 
 .gridContainer {

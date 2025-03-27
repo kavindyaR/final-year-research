@@ -22,4 +22,10 @@ export const biometricFormSchema = z.object({
   weight: z.coerce.number().min(1, "Must be provide valid weight"),
   bloodType: z.string(),
   salaryRange: z.string(),
+  basePremium: z.coerce
+    .number()
+    .min(1500, "This value cannot be less than 1500")
+    .max(100000, "This value cannot be exceed than 100,000"),
+  habit: z.preprocess((val) => val == "yes", z.boolean()),
+  maritalStatus: z.string(),
 });

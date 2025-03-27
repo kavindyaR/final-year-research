@@ -1,11 +1,12 @@
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { biometricFormSchema } from "../../schemas/formSchema";
+import styles from "./Dashboard.module.css";
 
 import FormInput from "../../components/FormInput";
 import FormSelect from "../../components/FormSelect";
 import FormButton from "../../components/FormButton";
-import styles from "./Dashboard.module.css";
+import FormRadioButtonGroup from "../../components/FormRadioButtonGroup";
 
 const Dashboard = () => {
   const methods = useForm({
@@ -62,6 +63,33 @@ const Dashboard = () => {
               { value: "150,000 - 350,000" },
               { value: "above 350,000" },
             ]}
+          />
+
+          <FormInput
+            name={"basePremium"}
+            label={"Base Premium (LKR 1500 - LKR 100,000)"}
+            type={"number"}
+            placeholder={""}
+          />
+
+          <FormRadioButtonGroup
+            description="Habit (smoking/drinking)"
+            name="habit"
+            options={[
+              { value: "yes", label: "Yes" },
+              { value: "no", label: "No" },
+            ]}
+            selectedValue="no"
+          />
+
+          <FormRadioButtonGroup
+            description="Marital Status"
+            name="maritalStatus"
+            options={[
+              { value: "single", label: "Single" },
+              { value: "married", label: "Married" },
+            ]}
+            selectedValue="single"
           />
 
           <FormButton

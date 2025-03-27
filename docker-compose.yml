@@ -63,6 +63,7 @@ services:
     volumes:
       - ./user-msvc:/app
       - /app/node_modules
+    tty: true
     networks:
       - app-network
 

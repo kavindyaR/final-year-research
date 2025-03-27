@@ -2,6 +2,8 @@ import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { biometricFormSchema } from "../../schemas/formSchema";
 import styles from "./Dashboard.module.css";
+import { useSaveUserData } from "../../hooks/useUserData";
+import { useAuth } from "../../context/AuthContext";
 
 import FormInput from "../../components/FormInput";
 import FormSelect from "../../components/FormSelect";
@@ -9,14 +11,23 @@ import FormButton from "../../components/FormButton";
 import FormRadioButtonGroup from "../../components/FormRadioButtonGroup";
 
 const Dashboard = () => {
+  const { user } = useAuth();
+  const { mutate } = useSaveUserData();
+
   const methods = useForm({
     resolver: zodResolver(biometricFormSchema),
     defaultValues: { height: null, weight: null },
   });
 
   const onSubmit = (data) => {
-    console.log("Triggered");
-    console.log(data);
+    if (user) {
+      mutate({ userId: user["_id"], userData: data });
+    } else {
+      console.error("User is not authenticated");
+    }
+
+    // console.log("Triggered");
+    // console.log(data);
   };
 
   return (

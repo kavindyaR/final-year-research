@@ -1,4 +1,5 @@
 const UserBiometric = require("../models/UserBiometric");
+const User = require("../models/User");
 
 const createBiometric = async (rawBioData) => {
   const { _id } = rawBioData;
@@ -8,6 +9,8 @@ const createBiometric = async (rawBioData) => {
 
   const bioData = new UserBiometric(rawBioData);
   await bioData.save();
+
+  await User.updateOne({ _id }, { $set: { isDataProvided: true } });
 
   return { message: "Bio data successfully saved" };
 };

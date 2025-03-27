@@ -46,7 +46,12 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem("refreshToken", response.data.token.refreshToken);
       // localStorage.setItem("user", response.data.user);
       setUser(response.data.user);
-      navigate("/dashboard");
+
+      if (user["isDataProvided"]) {
+        navigate("/chart");
+      } else {
+        navigate("/dashboard");
+      }
     } catch (error) {
       console.error("Login failed", error.response?.data?.message);
     }

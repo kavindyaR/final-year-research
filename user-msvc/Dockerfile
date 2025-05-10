@@ -8,7 +8,7 @@ RUN npm ci --omit=dev
 
 COPY . .
 
-EXPOSE 5001
+EXPOSE 5000
 
 ENV NODE_ENV=production
 

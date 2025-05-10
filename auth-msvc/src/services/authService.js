@@ -1,15 +1,15 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const { v4: uuidv4 } = require("uuid");
 const User = require("../models/User");
 const config = require("../config");
-const { v4: uuidv4 } = require("uuid");
 
 const generateAccessToken = (user) => {
   // JWT token object template
   return jwt.sign(
     {
-      id: user._id,
-      role: user.role,
+      userId: user._id,
+      userRole: user.role,
     },
     config.JWT_SECRET,
     {
@@ -18,15 +18,16 @@ const generateAccessToken = (user) => {
   );
 };
 
+// Generate a secure random refresh token
 const generateRefreshToken = () => {
-  return uuidv4(); // Generate a secure random token
+  return uuidv4();
 };
 
-const registerUser = async (username, email, password) => {
+const registerUser = async (userName, email, password) => {
   const existingUser = await User.findOne({ email });
   if (existingUser) throw new Error("User already exists");
 
-  const user = new User({ username, email, password });
+  const user = new User({ userName, email, password });
   await user.save();
 
   // return generateAccessToken(user);
@@ -44,16 +45,19 @@ const loginUser = async (email, password) => {
   const refreshToken = generateRefreshToken();
 
   user.refreshToken = refreshToken;
+
   await user.save();
 
   // Convert to plain object and remove fields
   const userObject = user.toObject();
+  userObject.userId = userObject._id;
+  delete userObject._id;
   delete userObject.password;
   delete userObject.__v;
 
   return {
-    user: userObject,
-    token: { accessToken, refreshToken, expiresIn: 7200 },
+    ...userObject,
+    token: accessToken,
   };
 };
 

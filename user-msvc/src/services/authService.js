@@ -1,8 +1,9 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const { v4: uuidv4 } = require("uuid");
-const User = require("../models/User");
 const config = require("../config");
+const User = require("../models/User");
+const UserData = require("../models/UserData");
 
 const generateAccessToken = (user) => {
   // JWT token object template
@@ -29,6 +30,14 @@ const registerUser = async (userName, email, password) => {
 
   const user = new User({ userName, email, password });
   await user.save();
+
+  const userData = new UserData({
+    _id: user._id,
+    userId: user._id,
+    name: userName,
+    email,
+  });
+  await userData.save();
 
   // return generateAccessToken(user);
   return { message: "User registered successfully", userId: user._id };

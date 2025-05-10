@@ -1,4 +1,8 @@
-const { getUserById, getAllUsers } = require("../services/userService");
+const {
+  getUserById,
+  getAllUsers,
+  updateUserData,
+} = require("../services/userService");
 
 exports.fetchUserData = async (req, res) => {
   try {
@@ -10,6 +14,17 @@ exports.fetchUserData = async (req, res) => {
     } else {
       response = await getAllUsers();
     }
+    res.status(200).json(response);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+exports.updateUserData = async (req, res) => {
+  try {
+    const { id } = req.query;
+
+    const response = await updateUserData(id, req.body);
     res.status(200).json(response);
   } catch (error) {
     res.status(400).json({ error: error.message });

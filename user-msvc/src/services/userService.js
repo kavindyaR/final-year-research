@@ -25,4 +25,20 @@ const getAllUsers = async () => {
   return result;
 };
 
-module.exports = { getUserById, getAllUsers };
+const updateUserData = async (userId, reqBody) => {
+  const updatedUser = await UserData.findByIdAndUpdate(userId, reqBody, {
+    new: true,
+  }).select("-__v");
+
+  if (!updatedUser) {
+    throw new Error("User not found");
+  }
+
+  const result = updatedUser.toObject();
+  result.id = result._id;
+  delete result._id;
+
+  return result;
+};
+
+module.exports = { getUserById, getAllUsers, updateUserData };

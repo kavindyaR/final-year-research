@@ -27,6 +27,7 @@ const getAllUsers = async () => {
 
 const updateUserData = async (userId, reqBody) => {
   const updatedUser = await UserData.findByIdAndUpdate(userId, reqBody, {
+    runValidators: true,
     new: true,
   }).select("-__v");
 

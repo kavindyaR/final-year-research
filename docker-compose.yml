@@ -32,30 +32,13 @@ services:
     networks:
       - app-network
 
-  auth-service:
-    build:
-      context: ./auth-msvc
-      dockerfile: Dockerfile
-    container_name: service01
-    ports:
-      - "5000:5000"
-    environment:
-      - NODE_ENV=development
-    env_file:
-      - ./auth-msvc/.env
-    volumes:
-      - ./auth-msvc:/app
-      - /app/node_modules
-    networks:
-      - app-network
-
   user-service:
     build:
       context: ./user-msvc
       dockerfile: Dockerfile
-    container_name: service02
+    container_name: user-service
     ports:
-      - "5001:5001"
+      - "5000:5000"
     environment:
       - NODE_ENV=development
     env_file:
@@ -71,7 +54,7 @@ services:
     build:
       context: ./data-msvc
       dockerfile: Dockerfile
-    container_name: service03
+    container_name: data-service
     ports:
       - "5002:5002"
     environment:

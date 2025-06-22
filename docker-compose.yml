@@ -1,62 +1,25 @@
 services:
-  nginx-gateway:
-    build:
-      context: ./nginx
-      dockerfile: Dockerfile
-    container_name: nginx_proxy
-    ports:
-      - "80:80"
-    networks:
-      - app-network
-    depends_on:
-      - frontend
-      - auth-service
-      - user-service
-      - data-service
-
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    container_name: react_frontend
-    ports:
-      - "3000:3000"
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules # Prevent overwriting node_modules
-    restart: unless-stopped
-    depends_on:
-      - auth-service
-      - user-service
-      - data-service
-    networks:
-      - app-network
-
   user-service:
+    container_name: user_msvc
     build:
       context: ./user-msvc
-      dockerfile: Dockerfile
-    container_name: user-service
+      dockerfile: Dockerfile.dev
     ports:
       - "5000:5000"
-    environment:
-      - NODE_ENV=development
     env_file:
       - ./user-msvc/.env
     volumes:
       - ./user-msvc:/app
       - /app/node_modules
     tty: true
-    networks:
-      - app-network
 
   data-service:
+    container_name: data_msvc
     build:
       context: ./data-msvc
       dockerfile: Dockerfile
-    container_name: data-service
     ports:
-      - "5002:5002"
+      - "8000:8000"
     environment:
       - FLASK_ENV=development
     env_file:
@@ -66,10 +29,23 @@ services:
       - /app/venv
     entrypoint: ["/bin/sh", "/app/entrypoint.sh"]
     restart: unless-stopped
-    networks:
-      - app-network
+
+  frontend:
+    container_name: react_frontend
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        ENV: prod
+    ports:
+      - "80:80"
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+    depends_on:
+      - user-service
+      - data-service
 
 networks:
-  app-network:
-    name: microservices-network
+  default:
     driver: bridge

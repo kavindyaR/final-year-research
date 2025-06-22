@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { saveUserDataByUID } from "../services/userDataApi";
+import { saveUserDataByUID, updateHealthMetrics } from "../api/userData";
 
 export const useSaveUserData = () => {
   return useMutation({
@@ -9,6 +9,18 @@ export const useSaveUserData = () => {
     },
     onError: (error) => {
       console.error("Error saving user data:", error);
+    },
+  });
+};
+
+export const useUpdateUserHealthMetrics = () => {
+  return useMutation({
+    mutationFn: (data) => updateHealthMetrics(data.userId, data.metrics),
+    onSuccess: () => {
+      console.log("Health metrics saved successfully:");
+    },
+    onError: (error) => {
+      console.error("Error saving health metrics:", error);
     },
   });
 };

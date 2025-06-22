@@ -19,7 +19,7 @@ const FormSelect = ({ name, label, options }) => {
       >
         {options.map((option) => (
           <option key={option.value} value={option.value}>
-            {option.value}
+            {option.description}
           </option>
         ))}
       </select>

@@ -2,6 +2,7 @@ import os
 
 class Config:
     MONGO_URI = os.getenv("MONGO_URI", "http://localhost:27017/fake-uri")
+    MONGO_DB = os.getenv("MONGO_DB", "researchV3")
     DEBUG = False
     MAX_CONTENT_LENGTH = 150 * 1024 * 1024  # 150MB limit
     BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))

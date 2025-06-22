@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import api from "../services/api";
+import axios from "../api/axiosInstance";
+import { ENDPOINTS } from "../api/endpoints";
 import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
@@ -13,15 +14,12 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        // const response = await api.get(
-        //   "http://localhost:5000/api/user/profile"
-        // ); // API to verify token
-        const response = await api.get("/api/user/profile"); // API to verify token
+        const response = await axios.get(ENDPOINTS.USERPROFILE); // API to verify token
         setUser(response.data);
       } catch (error) {
         console.log("Auth check failed:", error.message);
         setUser(null);
-        // logout();
+        logout();
       } finally {
         setLoading(false);
       }
@@ -37,34 +35,29 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      // const response = await api.post("http://localhost:5000/api/auth/login", {
-      const response = await api.post("/api/auth/login", {
+      const response = await axios.post(ENDPOINTS.LOGIN, {
         email,
         password,
       });
-      localStorage.setItem("accessToken", response.data.token.accessToken);
-      localStorage.setItem("refreshToken", response.data.token.refreshToken);
-      // localStorage.setItem("user", response.data.user);
-      setUser(response.data.user);
+      localStorage.setItem("accessToken", response.data.token);
+      localStorage.setItem("refreshToken", response.data.refreshToken);
+      setUser(response.data);
 
-      if (user["isDataProvided"]) {
-        navigate("/chart");
-      } else {
-        navigate("/dashboard");
-      }
+      navigate("/");
     } catch (error) {
       console.error("Login failed", error.response?.data?.message);
+      navigate("/login");
     }
   };
 
-  const register = async (username, email, password) => {
+  const register = async (userName, email, password) => {
     try {
-      // await api.post("http://localhost:5000/api/auth/register", {
-      await api.post("/api/auth/register", {
-        username,
+      await axios.post(ENDPOINTS.REGISTER, {
+        userName,
         email,
         password,
       });
+      console.log("Im here");
       login(email, password); // Auto-login after registration
     } catch (error) {
       console.error("Registration failed", error.response?.data?.message);
@@ -73,8 +66,8 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      // await api.post("http://localhost:5000/api/auth/logout", {
-      await api.post("/api/auth/logout", {
+      // console.log(localStorage.getItem("refreshToken"));
+      await axios.get(ENDPOINTS.LOGOUT, {
         refreshToken: localStorage.getItem("refreshToken"),
       });
       localStorage.removeItem("accessToken");

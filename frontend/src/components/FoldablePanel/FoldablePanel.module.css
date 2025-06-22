@@ -1,0 +1,44 @@
+.foldable {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+}
+
+.foldableHeader {
+  background-color: #f5f5f5;
+  padding: 12px 16px;
+  cursor: pointer;
+  font-weight: bold;
+  user-select: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.3s;
+}
+
+.foldableHeader:hover {
+  background-color: #e0e0e0;
+}
+
+.foldableIcon {
+  font-size: 14px;
+  transition: transform 0.3s ease;
+  display: inline-block;
+}
+
+.foldableIcon.open {
+  transform: rotate(90deg);
+}
+
+.foldableContent {
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+  background-color: #fff;
+}
+
+.foldableInner {
+  padding: 12px 16px;
+}

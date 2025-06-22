@@ -2,7 +2,9 @@ node_modules
 build
 .dockerignore
 Dockerfile
+Dockerfile.*
 .git
 .gitignore
 .vscode
 .env
+dist

@@ -1,9 +1,8 @@
 import os
-from werkzeug.utils import secure_filename
 from flask import current_app
+from werkzeug.utils import secure_filename
 
 ALLOWED_EXTENSIONS = {'xml', 'csv'}
-
 
 # Check if the file has an allowed extension
 def allowed_file(filename):

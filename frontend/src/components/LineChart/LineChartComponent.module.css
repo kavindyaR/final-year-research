@@ -1,0 +1,10 @@
+.chartWrapper {
+  overflow-x: auto;
+  width: 100%;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.chartWrapper::-webkit-scrollbar {
+  display: none;
+}

@@ -1,5 +1,8 @@
 FROM nginx:latest
 
-COPY nginx.conf /etc/nginx/nginx.conf
+# ARG ENV=dev
+# COPY ${ENV}/nginx.conf /etc/nginx/nginx.conf
+
+COPY dev/nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 80

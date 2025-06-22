@@ -1,7 +1,7 @@
 import { useFormContext } from "react-hook-form";
 import styles from "./FormInput.module.css";
 
-const FormInput = ({ name, label, type = "text", placeholder }) => {
+const FormInput = ({ name, label, type = "text", placeholder, readOnly }) => {
   const {
     register,
     formState: { errors },
@@ -19,6 +19,9 @@ const FormInput = ({ name, label, type = "text", placeholder }) => {
         id={name}
         placeholder={placeholder}
         aria-describedby="emailHelp"
+        readOnly={readOnly}
+        step="any"
+        onWheel={(e) => e.currentTarget.blur()}
       />
       {errors[name] && (
         <p className={styles.errorText}>{errors[name]?.message}</p>

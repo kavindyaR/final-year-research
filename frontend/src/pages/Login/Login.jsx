@@ -41,6 +41,7 @@ const Login = () => {
 
           <FormButton
             label={"Login"}
+            type={"primary"}
             disabled={methods.formState.isSubmitting}
           />
         </form>

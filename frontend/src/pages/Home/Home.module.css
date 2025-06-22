@@ -1,0 +1,36 @@
+.chartGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  margin-bottom: 50px;
+}
+
+.gridItem {
+  background-color: rgb(255, 253, 253);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  overflow-x: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.gridItem::-webkit-scrollbar {
+  display: none;
+}
+
+.activityLevel {
+  font-size: 1.8rem;
+  padding: 0 0 20px;
+}
+
+.activityLevel span {
+  font-weight: 600;
+}
+
+@media screen and (min-width: 768px) {
+  .chartGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

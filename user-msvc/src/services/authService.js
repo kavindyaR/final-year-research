@@ -4,6 +4,7 @@ const { v4: uuidv4 } = require("uuid");
 const config = require("../config");
 const User = require("../models/User");
 const UserData = require("../models/UserData");
+const HealthMetric = require("../models/HealthMetric");
 
 const generateAccessToken = (user) => {
   // JWT token object template
@@ -39,6 +40,11 @@ const registerUser = async (userName, email, password) => {
   });
   await userData.save();
 
+  const healthMetric = new HealthMetric({
+    _id: user._id,
+  });
+  await healthMetric.save();
+
   // return generateAccessToken(user);
   return { message: "User registered successfully", userId: user._id };
 };
@@ -71,12 +77,16 @@ const loginUser = async (email, password) => {
 };
 
 const logoutUser = async (refreshToken) => {
-  const user = await User.findOne({ refreshToken });
-  if (!user) throw new Error("Invalid refresh token");
+  try {
+    const user = await User.findOne({ refreshToken });
+    if (!user) throw new Error("Invalid refresh token");
 
-  user.refreshToken = null;
-  await user.save();
-  return { message: "User logged out successfully" };
+    user.refreshToken = null;
+    await user.save();
+    return { message: "User logged out successfully" };
+  } catch (error) {
+    return { error: error.message };
+  }
 };
 
 module.exports = { registerUser, loginUser, logoutUser };

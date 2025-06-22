@@ -11,9 +11,9 @@ def extract_necessary_records(dataframe):
     df['type'] = df['type'].str.replace('HKCategoryTypeIdentifier', '', regex=False)
 
     # Extract only necessary data records
-    necessary_records = ['HeartRate', 'OxygenSaturation', 'StepCount', 'BasalEnergyBurned', 
-                                'ActiveEnergyBurned', 'RestingHeartRate', 'WalkingHeartRateAverage', 
-                                'WalkingStepLength', 'HeartRateVariabilitySDNN']
+    necessary_records = ['HeartRate', 'StepCount', 'BasalEnergyBurned', 'ActiveEnergyBurned', 
+                            'RestingHeartRate', 'WalkingHeartRateAverage', 
+                            'WalkingStepLength', 'HeartRateVariabilitySDNN']
     df = df[df['type'].isin(necessary_records)]
 
     # Convert 'date' to datetime if not already done
@@ -48,8 +48,8 @@ def extract_health_data(xml_file_path):
 
 # Define aggregation function based on 'type'
 def agg_function(x):
-    mean_types = ['HeartRate', 'OxygenSaturation', 'RestingHeartRate', 'WalkingHeartRateAverage', 
-    'HeartRateVariabilitySDNN', 'WalkingStepLength']
+    mean_types = ['HeartRate', 'RestingHeartRate', 'WalkingHeartRateAverage', 
+                    'HeartRateVariabilitySDNN', 'WalkingStepLength']
     sum_types = ['ActiveEnergyBurned', 'BasalEnergyBurned', 'StepCount']
 
     # Access the group key (type) from the name attribute
@@ -67,7 +67,7 @@ def agg_function(x):
     return pd.Series({'value': value, 'unit': unit})
 
 
-def preprocess_health_data(file_path, username):
+def preprocess_health_data(file_path):
     data = extract_health_data(file_path)
     df = pd.DataFrame(data) # Convert XML data to Pandas DataFrame
 

@@ -56,7 +56,8 @@ const Register = () => {
           />
 
           <FormButton
-            label={"Register"}
+            label={"Update"}
+            type={"primary"}
             disabled={methods.formState.isSubmitting}
           />
         </form>

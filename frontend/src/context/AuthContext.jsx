@@ -57,7 +57,6 @@ export const AuthProvider = ({ children }) => {
         email,
         password,
       });
-      console.log("Im here");
       login(email, password); // Auto-login after registration
     } catch (error) {
       console.error("Registration failed", error.response?.data?.message);

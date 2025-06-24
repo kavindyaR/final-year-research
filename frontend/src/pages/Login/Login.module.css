@@ -10,8 +10,29 @@
   margin-bottom: 30px;
 }
 
+.regLabel {
+  display: flex;
+  justify-content: end;
+  font-size: 1.4rem;
+  margin-top: 15px;
+}
+
+.regBtn {
+  padding-left: 5px;
+  cursor: pointer;
+  color: #0d6efd;
+}
+
+.regBtn:hover {
+  text-decoration: underline;
+}
+
 @media screen and (min-width: 1024px) {
   .formWrapper {
     width: 40vw;
+  }
+
+  .regLabel {
+    font-size: 1.44rem;
   }
 }

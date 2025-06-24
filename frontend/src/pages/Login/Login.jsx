@@ -5,9 +5,11 @@ import { useAuth } from "../../context/AuthContext";
 import FormButton from "../../components/FormButton";
 import FormInput from "../../components/FormInput";
 import styles from "./Login.module.css";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const { login } = useAuth();
+  const navigate = useNavigate();
 
   const methods = useForm({
     resolver: zodResolver(loginFormSchema),
@@ -44,6 +46,16 @@ const Login = () => {
             type={"primary"}
             disabled={methods.formState.isSubmitting}
           />
+
+          <div className={styles.regLabel}>
+            Already have an account?{" "}
+            <span
+              className={styles.regBtn}
+              onClick={() => navigate("/register")}
+            >
+              Register
+            </span>
+          </div>
         </form>
       </FormProvider>
     </div>

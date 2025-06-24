@@ -44,6 +44,7 @@ export const AuthProvider = ({ children }) => {
       setUser(response.data);
 
       navigate("/");
+      window.location.reload();
     } catch (error) {
       console.error("Login failed", error.response?.data?.message);
       navigate("/login");

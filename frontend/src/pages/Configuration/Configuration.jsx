@@ -8,20 +8,22 @@ import "./styles.css";
 const Configuration = () => {
   return (
     <MainLayout>
-      <div className={styles.bodyWrapper}>
-        <h1>Configurations</h1>
+      <div className={styles.pageContainer}>
+        <h2 className={styles.pageTitle}>Configurations</h2>
 
-        <div className={styles.panelWrapper}>
-          <FoldablePanel title="Health Metrics Margins">
-            <MetricsMargin />
-          </FoldablePanel>
+        <div className={styles.formSquare}>
+          <div className={styles.panelWrapper}>
+            <FoldablePanel title="Health Metrics Margins">
+              <MetricsMargin />
+            </FoldablePanel>
+          </div>
+
+          {/* <div className={styles.panelWrapper}>
+            <FoldablePanel title="Health Metrics Weights">
+              <MetricsWeight />
+            </FoldablePanel>
+          </div> */}
         </div>
-
-        {/* <div className={styles.panelWrapper}>
-          <FoldablePanel title="Health Metrics Weights">
-            <MetricsWeight />
-          </FoldablePanel>
-        </div> */}
       </div>
     </MainLayout>
   );

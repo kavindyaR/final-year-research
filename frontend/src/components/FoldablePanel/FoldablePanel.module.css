@@ -1,32 +1,40 @@
 .foldable {
   width: 100%;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
   margin-bottom: 1rem;
   overflow: hidden;
   transition: box-shadow 0.3s ease;
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .foldableHeader {
-  background-color: #f5f5f5;
-  padding: 12px 16px;
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.8) 0%, rgba(59, 130, 246, 0.8) 50%, rgba(29, 78, 216, 0.8) 100%);
+  padding: 16px 20px;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #ffffff;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
   user-select: none;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: background-color 0.3s;
+  transition: all 0.3s ease;
 }
 
 .foldableHeader:hover {
-  background-color: #e0e0e0;
+  background: linear-gradient(135deg, rgba(29, 78, 216, 0.9) 0%, rgba(37, 99, 235, 0.9) 50%, rgba(59, 130, 246, 0.9) 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
 }
 
 .foldableIcon {
-  font-size: 14px;
+  font-size: 16px;
   transition: transform 0.3s ease;
   display: inline-block;
+  color: #ffffff;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .foldableIcon.open {
@@ -36,9 +44,10 @@
 .foldableContent {
   overflow: hidden;
   transition: max-height 0.4s ease;
-  background-color: #fff;
+  background: rgba(255, 255, 255, 0.95);
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .foldableInner {
-  padding: 12px 16px;
+  padding: 20px;
 }

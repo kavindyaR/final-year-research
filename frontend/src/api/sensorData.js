@@ -8,3 +8,11 @@ export const getSensorData = async (userId) => {
 
   return response;
 };
+
+export const getActivityScore = async (userId) => {
+  const response = await axios.get(ENDPOINTS.GETACTIVITYSCORE, {
+    params: { userId: userId },
+  });
+
+  return response;
+};

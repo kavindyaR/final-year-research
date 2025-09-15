@@ -14,13 +14,13 @@ const UserDataScehma = new mongoose.Schema(
     diastolic_bp: { type: Number, default: null },
     activity_level: {
       type: String,
-      enum: ["Light", "High", "Low", "Moderate", ""],
+      enum: ["Light", "High", "Sedentary", "Moderate", ""],
       default: "",
     },
     membership_months: { type: Number, default: null },
     risk_level: {
       type: String,
-      enum: ["High", "Low", "Moderate", ""],
+      enum: ["High", "Sedentary", "Moderate", ""],
       default: "",
     },
     bmi: { type: Number, default: null },

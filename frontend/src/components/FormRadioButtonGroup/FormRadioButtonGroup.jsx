@@ -15,22 +15,25 @@ const FormRadioButtonGroup = ({
     <div className={styles.radioGroupWrapper}>
       <label className={styles.description}>{description}</label>
       <div className={styles.radioGroup}>
-        {options.map((option) => (
-          <div className="form-check" key={option.value}>
-            <input
-              {...register(name)}
-              className="form-check-input"
-              type="radio"
-              name={name}
-              value={option.value}
-              id={option.value}
-              defaultChecked={selectedValue === option.value}
-            />
-            <label className="form-check-label" htmlFor={option.value}>
-              {option.label}
-            </label>
-          </div>
-        ))}
+        {options.map((option) => {
+          const radioId = `${name}_${option.value}`;
+          return (
+            <div className="form-check" key={option.value}>
+              <input
+                {...register(name)}
+                className="form-check-input"
+                type="radio"
+                name={name}
+                value={option.value}
+                id={radioId}
+                defaultChecked={selectedValue === option.value}
+              />
+              <label className="form-check-label" htmlFor={radioId}>
+                {option.label}
+              </label>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

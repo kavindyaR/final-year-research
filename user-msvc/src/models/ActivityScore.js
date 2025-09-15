@@ -4,7 +4,7 @@ const ActivityScoreSchema = new mongoose.Schema(
   {
     _id: { type: String, required: true },
     date: { type: Date },
-    types: { type: Number },
+    value: { type: Number }, // Changed from 'types' to 'value' to match Python backend
   },
   { collection: "activityscore" }
 );

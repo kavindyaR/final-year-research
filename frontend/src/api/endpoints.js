@@ -4,6 +4,7 @@ export const ENDPOINTS = {
   LOGOUT: "/api/auth/logout",
   USERS: "/users",
   GETSENSORDATA: "/api/sensor-data/get-sensor-data",
+  GETACTIVITYSCORE: "/api/sensor-data/fetch-activity-score",
   USERDATA: "/api/user",
   FILEUPLOAD: "/api/data/upload",
   SAVEUSERDATABYID: "/api/user/update",

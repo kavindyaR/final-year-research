@@ -1,0 +1,43 @@
+<svg width="60" height="60" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="blueGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e88e5;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1976d2;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1565c0;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="greenGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#66bb6a;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#4caf50;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#388e3c;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Blue crescent shape -->
+  <path d="M 30 100 A 70 70 0 1 1 100 30 A 50 50 0 1 0 100 170 A 70 70 0 0 1 30 100 Z" 
+        fill="url(#blueGradient)" opacity="0.9"/>
+  
+  <!-- White background circle -->
+  <circle cx="100" cy="100" r="45" fill="white" opacity="0.95"/>
+  
+  <!-- Green cross -->
+  <rect x="90" y="75" width="20" height="50" fill="url(#greenGradient)" rx="3"/>
+  <rect x="75" y="90" width="50" height="20" fill="url(#greenGradient)" rx="3"/>
+  
+  <!-- Green curved person figure -->
+  <g transform="translate(130, 60)">
+    <!-- Person head -->
+    <circle cx="15" cy="15" r="8" fill="url(#greenGradient)"/>
+    
+    <!-- Person body (curved) -->
+    <path d="M 15 25 Q 25 35 30 50 Q 35 65 40 80 Q 20 75 15 60 Q 10 45 5 30 Q 10 25 15 25 Z" 
+          fill="url(#greenGradient)" opacity="0.9"/>
+    
+    <!-- Person arms (gesture) -->
+    <path d="M 10 35 Q 5 30 0 35" stroke="url(#greenGradient)" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path d="M 20 35 Q 25 30 30 35" stroke="url(#greenGradient)" stroke-width="3" fill="none" stroke-linecap="round"/>
+  </g>
+  
+  <!-- Additional blue accent curves -->
+  <path d="M 20 50 Q 40 40 60 50" stroke="url(#blueGradient)" stroke-width="4" fill="none" opacity="0.7"/>
+  <path d="M 140 150 Q 160 140 180 150" stroke="url(#blueGradient)" stroke-width="4" fill="none" opacity="0.7"/>
+</svg>

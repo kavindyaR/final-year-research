@@ -1,28 +1,63 @@
 .radioGroupWrapper {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   padding: 5px 0;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
+  width: 100%;
 }
 
 .description {
-  font-size: 1.6rem;
-  margin-right: 15px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #000000 !important;
+  text-shadow: none !important;
+  margin-bottom: 0.5rem;
 }
 
 .radioGroup {
   display: flex;
-  column-gap: 4rem;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.radioGroup .form-check {
+  margin-bottom: 0;
+}
+
+.radioGroup .form-check-label {
+  font-size: 1rem;
+  color: #000000 !important;
+  font-weight: 500;
+  text-shadow: none !important;
+  margin-left: 0.25rem;
+  background-color: transparent !important;
+}
+
+.radioGroup .form-check-label:hover,
+.radioGroup .form-check-label:focus,
+.radioGroup .form-check-label:active {
+  color: #000000 !important;
+  text-shadow: none !important;
+}
+
+.radioGroup .form-check-input {
+  margin-right: 0.5rem;
+  background-color: #ffffff;
+  border: 2px solid #3b82f6;
+}
+
+.radioGroup .form-check-input:checked {
+  background-color: #3b82f6;
+  border-color: #3b82f6;
 }
 
 @media screen and (min-width: 768px) {
   .radioGroupWrapper {
-    grid-template-columns: 180px 1fr;
-    gap: 15px;
+    margin-bottom: 1.5rem;
   }
-
+  
   .description {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
   }
 }

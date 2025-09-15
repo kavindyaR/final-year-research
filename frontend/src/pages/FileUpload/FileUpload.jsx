@@ -30,44 +30,46 @@ const FileUpload = () => {
 
   return (
     <MainLayout>
-      <div className={styles.pageWrapper}>
-        <h1 className={styles.pageHeading}>File Upload Page</h1>
+      <div className={styles.pageContainer}>
+        <h2 className={styles.pageTitle}>File Upload</h2>
 
-        <div className={styles.dropContainer}>
-          <div className={styles.dropZone} {...getRootProps()}>
-            <input {...getInputProps()} />
-            <p>
-              {isDragActive
-                ? "Drop the file here..."
-                : "Drag & drop or click to select an XML file"}
-            </p>
+        <div className={styles.formSquare}>
+          <div className={styles.dropContainer}>
+            <div className={styles.dropZone} {...getRootProps()}>
+              <input {...getInputProps()} />
+              <p className={styles.dropText}>
+                {isDragActive
+                  ? "Drop the file here..."
+                  : "Drag & drop or click to select an XML file"}
+              </p>
 
-            {files.length > 0 && (
-              <p className={styles.fileName}>{files[0].name}</p>
-            )}
-          </div>
-
-          {progress > 0 && progress < 100 && (
-            <div className={styles.progressBarContainer}>
-              <div
-                className={styles.progrssBar}
-                style={{ width: `${progress}%` }}
-              >
-                {progress}%
-              </div>
+              {files.length > 0 && (
+                <p className={styles.fileName}>{files[0].name}</p>
+              )}
             </div>
-          )}
 
-          {uploadMutation.isLoading && <p>Uploading...</p>}
-          {uploadMutation.isError && <p>{uploadMutation.error.message}</p>}
+            {progress > 0 && progress < 100 && (
+              <div className={styles.progressBarContainer}>
+                <div
+                  className={styles.progressBar}
+                  style={{ width: `${progress}%` }}
+                >
+                  {progress}%
+                </div>
+              </div>
+            )}
 
-          <button
-            className={styles.uploadBtn}
-            onClick={() => uploadMutation.mutate({ file: files[0] })}
-            disabled={uploadMutation.isLoading || files.length === 0}
-          >
-            {uploadMutation.isLoading ? "Uploading..." : "Upload File"}
-          </button>
+            {uploadMutation.isLoading && <p className={styles.statusText}>Uploading...</p>}
+            {uploadMutation.isError && <p className={styles.errorText}>{uploadMutation.error.message}</p>}
+
+            <button
+              className={styles.uploadBtn}
+              onClick={() => uploadMutation.mutate({ file: files[0] })}
+              disabled={uploadMutation.isLoading || files.length === 0}
+            >
+              {uploadMutation.isLoading ? "Uploading..." : "Upload File"}
+            </button>
+          </div>
         </div>
       </div>
     </MainLayout>

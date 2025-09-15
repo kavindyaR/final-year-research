@@ -107,7 +107,7 @@ const MetricsMargin = () => {
 
         <FormButton
           label={"Update"}
-          type={"warning"}
+          type={"primary"}
           disabled={methods.formState.isSubmitting}
         />
       </form>

@@ -29,12 +29,14 @@ export const biometricFormSchema = z
     monthly_income: z.coerce.number().min(1, "Must be provide valid income"),
     base_premium: z.coerce
       .number()
-      .min(1500, "This value cannot be less than 1500")
-      .max(100000, "This value cannot be exceed than 100,000"),
+      .min(5000, "This value cannot be less than 5000")
+      .max(100000, "This value cannot exceed 100,000"),
     membership_months: z.coerce.number().min(1),
+
     habit: z.string(),
     // habit: z.preprocess((val) => val == "yes", z.boolean()),
   })
+  // BMI Calculation
   .transform((data) => ({
     ...data,
     bmi: +(data.weight_kg / data.height_m ** 2).toFixed(2),

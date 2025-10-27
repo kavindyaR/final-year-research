@@ -20,7 +20,7 @@ const Home = () => {
     if (score >= 80) return "High";
     if (score >= 60) return "Moderate";
     if (score >= 40) return "Light";
-    return "Sedentary";
+    return "Low";
   };
 
   // Function to get color based on score (0-100: red to yellow)

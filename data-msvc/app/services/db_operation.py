@@ -202,7 +202,7 @@ def save_activity_score(fetched_df, collection, user_id):
         fetched_df['percentage_score'] = fetched_df.apply(calculate_percentage_score, axis=1, margins=metrics_margins)
 
         df_normalized = fetched_df.groupby(["type", "unit"], as_index=False)["percentage_score"].mean()
-        # df_normalized.loc[df_normalized["type"] == "", "percentage_score"] *= 100
+        # df_normalized.loc[df_normalized["type"] == "OxygenSaturation", "percentage_score"] *= 100
 
         # Round max value to 100
         df_normalized["percentage_score"] = df_normalized["percentage_score"].clip(upper=100)
@@ -214,7 +214,7 @@ def save_activity_score(fetched_df, collection, user_id):
         df_normalized["scaled_score"] = (df_normalized["percentage_score"] - min_val) / (max_val - min_val)
 
         # Calculate normalized scores for each row
-        df_normalized['weighted _score'] = df_normalized.apply(calculate_weighted_score, axis=1, weights=metrics_weights)
+        df_normalized['weighted_score'] = df_normalized.apply(calculate_weighted_score, axis=1, weights=metrics_weights)
 
         activity_score = df_normalized['weighted_score'].sum()
         activity_score = activity_score * 100
